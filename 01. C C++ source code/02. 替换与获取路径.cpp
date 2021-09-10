@@ -1,4 +1,5 @@
 //创建一个替换的函数
+//替换原文:	https://zhidao.baidu.com/question/277052495.html
 void replace(char originalString[], char key[], char swap[]) {
 	int lengthOfOriginalString, lengthOfKey, lengthOfSwap, i, j, flag;
 	char tmp[1000];
