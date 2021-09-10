@@ -1,0 +1,31 @@
+#
+# getpid implementation by: Alyssa (ramen0x3f)
+# as presented in his utils.cna
+#
+sub getpidWorker {
+    $to_match = replace($3, ".exe", "");
+    bps($1, lambda({
+        local('$pid $name $entry $arch $user');
+        foreach $entry (split("\n", $2)) {
+            ($name, $null, $pid, $arch, $user) = split("\\s+", $entry);
+
+            if($user eq "NT") {
+                $user = substr($entry, indexOf($entry, "NT "));
+                $tab = indexOf($user, "\t");
+                if ($tab) {
+                    $user = substr($user, 0, $tab);
+                }
+            }
+
+            if ((lc(replace($name, ".exe", "")) cmp lc($to_match)) == 0) {
+                [$callback: $1, $name, $pid, $arch, $user];
+            }
+        }
+    }, $callback => $2));
+}
+
+alias getpid {
+    getpidWorker($1, {   
+        blog($1, "     $2 \t $3 \t $4 \t $5");
+    }, $2); 
+}
