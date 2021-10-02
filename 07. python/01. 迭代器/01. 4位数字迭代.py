@@ -29,3 +29,9 @@ num_list_res  = permute(num_list)
 for a in num_list_res:
     # join用法: 说list包含数字，不能直接转化成字符串。     JOIN非数字: print(' '.join(list1))      JSON包含数字: print(''.join('%s' %id for id in a))
     print(''.join('%s' %id for id in a))
+    '''
+    wenben = ''.join('%s' %id for id in a)
+    f = open('test.txt', 'a+')
+    f.write(wenben+"\r\n")
+    f.close()
+    '''
